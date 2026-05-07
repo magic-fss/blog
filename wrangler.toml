@@ -1,0 +1,55 @@
+
+      #:schema node_modules/wrangler/config-schema.json
+      name = "rin-server"
+      main = "server/src/_worker.ts"
+      compatibility_date = "2026-01-20"
+
+      [assets]
+      directory = "./dist/client"
+      binding = "ASSETS"
+      
+[triggers]
+crons = ["*/20 * * * *"]
+      
+      
+
+      [vars]
+      S3_FOLDER = "images/"
+      S3_CACHE_FOLDER="cache/"
+      S3_REGION = "cn-beijing"
+      S3_ENDPOINT = "https://oss-accelerate.aliyuncs.com"
+      S3_ACCESS_HOST = "https://blog-oss-2026.oss-accelerate.aliyuncs.com"
+      S3_BUCKET = "blog-oss-2026"
+      S3_FORCE_PATH_STYLE = "false"
+      WEBHOOK_URL = ""
+      RSS_TITLE = "Rin"
+      RSS_DESCRIPTION = "My Personal Blog"
+      CACHE_STORAGE_MODE = "database"
+      NAME = "Rin"
+      DESCRIPTION = "A lightweight personal blogging system"
+      AVATAR = ""
+      PAGE_SIZE = "5"
+      RSS_ENABLE = "false"
+
+      [placement]
+      mode = "smart"
+    
+[[d1_databases]]
+binding = "DB"
+database_name = "rin"
+database_id = "1e0c47af-7755-400c-9459-fc30b350ebb1"
+    
+
+[ai]
+binding = "AI"
+  
+
+[[queues.producers]]
+binding = "TASK_QUEUE"
+queue = "rin-server-tasks"
+
+[[queues.consumers]]
+queue = "rin-server-tasks"
+max_batch_size = 1
+max_batch_timeout = 5
+  
